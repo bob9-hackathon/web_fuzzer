@@ -14,16 +14,18 @@ class FUZZER:
     
     def start(self):
         print("Start Fuzzing...\n")
-        with requests.Session() as s:
-            loginfo = {"login":"bee", "password":"bug", "security_level" : "0", "form" : "submit"}
-            s.post(도매인+"/bWAPP/login.php", data=loginfo)
-            cookie = s.get(도메인+"/bWAPP/portal.php")
-            sess = cookie.cookies
-            sess = sess["PHPSESSID"]
-            self.fuzzing()
+        self.fuzzing()
     
     def fuzzing(self):
         for url in self.urls:
+            domain = url[:url.find('/', url.find("//") + 2)]
+            s = requests.Session()
+            loginfo = {"login":"bee", "password":"bug", "security_level" : "0", "form" : "submit"}
+            s.post(domain+"/bWAPP/login.php", data=loginfo)
+            cookie = s.get(domain+"/bWAPP/portal.php")
+            sess = cookie.cookies
+            sess = sess["PHPSESSID"]
+
             print("Target:", url)
             print("======================================================================")
             print("ID          Response    Lines    Word    Chars    Payload")
@@ -36,15 +38,9 @@ class FUZZER:
             for _ in range(thread_cnt):
                 # parameter 전달 순서 고려
                 method = ""
-<<<<<<< HEAD
                 if str(self.post_data) != "None": method.join("POST")
                 else: method.join("GET")
                 xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
-=======
-                if str(self.post_data) != "{}": method = "POST"
-                else: method = "GET"
-                xssfz = xss_fuzz.XSS(method, url, self.cookie_dict, self.seed)
->>>>>>> f0ba226ac7c18417d6a7986b9cb81941dc4b535e
                 thread = threading.Thread(target=xssfz.StartFuzz())
                 thread.start()
                 threadlist.append(thread)
