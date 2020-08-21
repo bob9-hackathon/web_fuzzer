@@ -1,6 +1,4 @@
 import argparse
-import requests
-from bs4 import BeautifulSoup as bs
 import webfuzz as wfz
 #import xss_fuzz
 #import sql_fuzz
@@ -23,9 +21,9 @@ def print_introduce():
 
 def add_args(parser):
     parser.add_argument('-seed', required=True, help='퍼징할 시드파일 경로')
-    parser.add_argument('-cookies', required=False, help='쿠키값, 여러 개의 쿠키값 구분자: &&&')    
+    parser.add_argument('-params', required=False, help='인자값, 여러 개 구분자: ***')    
     parser.add_argument('-post', required=False, help='POST 방식으로 넘길 값')             
-    parser.add_argument('-urls', required=True, help='대상 주소 URL, 여러 개의 url 구분자: &&&')
+    parser.add_argument('-urls', required=True, help='대상 주소 URL, 여러 개의 url 구분자: ***')
 
 def parse_inputs(args, fuzzer):
     
@@ -39,11 +37,11 @@ def parse_inputs(args, fuzzer):
             fuzzer.urls.append(url)
 
     # cookie 파싱하여 저장
-    if str(args.cookies) != "None":
-        input_cookies = str(args.cookies).split("***")
-        for cookie in input_cookies:
-            equal_parsed = str(cookie).split("=", maxsplit=1)
-            fuzzer.cookie_dict[equal_parsed[0]] = equal_parsed[1]                       
+    if str(args.params) != "None":
+        input_params = str(args.cookies).split("***")
+        for param in input_params:
+            equal_parsed = str(param).split("=", maxsplit=1)
+            fuzzer.param_dict[equal_parsed[0]] = equal_parsed[1]                       
 
     # 입력받은 POST data값 파싱하여 저장
     if str(args.post) != "None":                            
@@ -58,8 +56,6 @@ def parse_inputs(args, fuzzer):
 ########################################## <Main Loop> ##########################################
 if __name__ == "__main__":
 
-    print_introduce()
-
     # 1. 퍼저 인스턴스 생성
     fuzzer = wfz.FUZZER()
 
@@ -70,6 +66,7 @@ if __name__ == "__main__":
     parse_inputs(args, fuzzer)
 
     # 3. fuzzing 시작
+    print_introduce()
     fuzzer.start()
 
 ########################################## </Main Loop> ##########################################
