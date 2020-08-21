@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 
-class Fuzzer():
+class Fuzzer(object):
 
     def intro():
         print("################################################");
@@ -15,5 +15,10 @@ class Fuzzer():
         self.seed = seed
         self.cookies = {}
 
-if __name__ == "__main__":
-    Fuzzer(intro);
+    def seedfile():
+        filepath = open("seed/sql/sql.txt")
+
+        payload_line = filepath.readlines()
+        print(payload_line) #test
+
+    seedfile()
