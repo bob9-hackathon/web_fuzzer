@@ -12,12 +12,11 @@ class XSS:
         count = 0
         while True:
             vector = self.seed.readline()#시드 읽기
-            print(vector)
             if(vector == ""):
                 break
             self.InsertSeed(vector)#@ --> 공격 시드로 변경
             if(self.method == "GET"):
-                res = requests.get(self.url, parmas=self.par)
+                res = requests.get(self.url, params={"xss": vector})
             else:#(self.method == "POST"):
                 res = requests.post(self.url, data=self.par)
 
@@ -44,8 +43,7 @@ class XSS:
         print("            status        suceess       payload     ")
         result_string = "[{number}]     {code}      {suceess}       {payload}       "#번호,응답코드,성공여부,페이로드
         XSSresult = xss_result.XSSresult(self.par, res)
-        result_string.format(number=count,code=res.status_code,suceess=XSSresult.FindPayload(),payload=self.par)
-        print(result_string)
+        print(result_string.format(number=count,code=res.status_code,suceess=XSSresult.FindPayload(),payload=self.par))
 
 
 

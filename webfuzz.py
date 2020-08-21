@@ -25,8 +25,8 @@ class FUZZER:
             for _ in range(thread_cnt):
                 # parameter 전달 순서 고려
                 method = ""
-                if str(self.post_data) != "None": method.join("POST")
-                else: method.join("GET")
+                if str(self.post_data) != "{}": method = "POST"
+                else: method = "GET"
                 xssfz = xss_fuzz.XSS(method, url, self.cookie_dict, self.seed)
                 thread = threading.Thread(target=xssfz.StartFuzz())
                 thread.start()
