@@ -1,4 +1,5 @@
 import threading
+import xss_fuzz
 
 class FUZZER:
     def __init__(self):
@@ -22,8 +23,12 @@ class FUZZER:
             thread_cnt = len(self.cookie_dict)
             threadlist = list()
             for _ in range(thread_cnt):
-                #스레드에서 call 하는 부분 수정 필요
-                thread = threading.Thread(target=self.print_res, args=(self.seed, url, self.cookie_dict, self.post_data))
+                # parameter 전달 순서 고려
+                method = ""
+                if str(self.post_data) != "None": method.join("POST")
+                else: method.join("GET")
+                xssfz = xss_fuzz.XSS(method, url, self.cookie_dict, self.seed)
+                thread = threading.Thread(target=xssfz.StartFuzz())
                 thread.start()
                 threadlist.append(thread)
     
