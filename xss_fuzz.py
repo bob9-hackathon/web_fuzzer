@@ -13,20 +13,21 @@ class XSS:
     def StartFuzz(self):
         count = 0
         for vector in self.seed:
-            self.InsertSeed(vector)#@ --> 공격 시드로 변경
             if(self.method == "GET"):
-                res = requests.get(self.url, params={"xss": vector})
+                res = requests.get(self.url, params=self.InsertSeed(vector))#@ --> 공격 시드로 변경
             else:#(self.method == "POST"):
-                res = requests.post(self.url, data=self.par)
+                res = requests.post(self.url, data=self.InsertSeed(vector))#@ --> 공격 시드로 변경
 
             self.ResultProcess(res, count)#결과 출력
             count += 1
 
     def InsertSeed(self, vector):
         #파라미터마다 다른 시드 삽입
-        for i in self.par.keys():
-            if(self.par[i] == '@'):
-                self.par[i] = vector
+        temp = self.par;
+        for i in temp.keys():
+            if(temp[i] == '@'):
+                temp[i] = vector
+        return temp
 
         # 파라미터에 서로 같은 시드
         # tmp = self.seed.readline()
