@@ -1,0 +1,18 @@
+title=@1&action=search
+movie=@1&action=go
+login=@1&password=@2&form=submit
+login=@1&password=@2&form=submit
+entry=@1&blog=add
+entry=@1&entry_add=add
+User-Agent: @1
+<reset><login>@1</login><secret>Any bugs?</secret></reset>
+
+http://@ip/bWAPP/sqli_1.php?title=@1&action=search
+http://@ip/bWAPP/sqli_2.php?movie=@1&action=go
+http://@ip/bWAPP/sqli_10-1.php?title=@1
+http://@ip/bWAPP/sqli_9.php?title=@1&action=search
+http://@ip/bWAPP/sqli_11.php?title=@1&action=search
+http://@ip/bWAPP/sqli_4.php?title=@1&action=search
+http://@ip/bWAPP/sqli_15.php?title=@1&action=search
+http://@ip/bWAPP/sqli_14.php?title=@1&action=search
+http://@ip/bWAPP/sqli_5.php?title=@1&action=go
