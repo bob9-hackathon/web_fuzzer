@@ -12,12 +12,13 @@ class XSS:
         count = 0
         while True:
             vector = self.seed.readline()#시드 읽기
+            print(vector)
             if(vector == ""):
                 break
             self.InsertSeed(vector)#@ --> 공격 시드로 변경
             if(self.method == "GET"):
                 res = requests.get(self.url, parmas=self.par)
-            elif(self.method == "POST"):
+            else:#(self.method == "POST"):
                 res = requests.post(self.url, data=self.par)
 
             self.ResultProcess(res, count)#결과 출력

