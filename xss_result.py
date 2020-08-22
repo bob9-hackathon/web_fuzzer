@@ -8,7 +8,7 @@ class XSSresult:
     def FindPayload(self):
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver = webdriver.Chrome(chrome_options=chrome_options,executable_path='C:/chromedriver.exe')
         try:
             html = self.res.text
             
