@@ -24,6 +24,7 @@ def add_args(parser):
     parser.add_argument('-params', required=False, help='인자값, 여러 개 구분자: ***')    
     parser.add_argument('-post', required=False, help='POST 방식으로 넘길 값')      
     parser.add_argument('-urls', required=True, help='대상 주소 URL, 여러 개의 url 구분자: ***')
+    parser.add_argument('-cookie', required=True, help='session cookie info')
 
 def parse_inputs(args, fuzzer):
     
@@ -49,6 +50,13 @@ def parse_inputs(args, fuzzer):
         for i in range(len(amp_parsed)):
             equal_parsed = str(amp_parsed[i]).split("=")
             fuzzer.post_data[equal_parsed[0]] = equal_parsed[1]
+    
+    # 입력받은 쿠키 파싱하여 저장
+    if str(args.cookie) != "None":
+        semicolon_parsed = str(args.cookie).split(";")
+        for i in range(len(semicolon_parsed)):
+            equal_parsed = str(semicolon_parsed[i]).split("=")
+            fuzzer.cookie[equal_parsed[0]] = equal_parsed[1]
 
 ########################################## </Functions> #########################################
 

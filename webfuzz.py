@@ -9,6 +9,7 @@ class FUZZER:
         self.urls = list()
         self.param_dict = dict()
         self.post_data = dict()
+        self.cookie = dict()
     
     def start(self):
         print("Start Fuzzing...\n")
@@ -28,4 +29,5 @@ class FUZZER:
             xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
             xssfz.StartFuzz()
 
-            #sqlfz 부분 추가
+            #sqlfz = sql_fuzz.SQLFuzzer(url, self.seed, param_dict)
+            #sqlfz.StartFuzz()
