@@ -11,3 +11,11 @@
 5. Team Member(4) 정상훈
 6. Team Member(5) 정동현
 ```
+
+### Requirements
+`pip3 install selenium requests`
+
+### Execute
+#### XSS
+`python.exe .\main.py -urls "http://127.0.0.1/xss_get" -seed .\seed\xss\xss.txt -params "xss=@"`
+> Web Server : [XSS_Server](https://github.com/bob9-hackathon/XSS_Server)
