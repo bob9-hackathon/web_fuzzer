@@ -1,7 +1,6 @@
-import os
 import requests
-import threading
 import xss_fuzz
+#import sql_fuzz
 
 class FUZZER:
     
@@ -26,22 +25,14 @@ class FUZZER:
             sess = sess["PHPSESSID"]
 
             print("Target:", url)
-            print("======================================================================")
-            print("TYPE          Response    Lines    Word    Chars    Payload")
-            print("======================================================================")
+            print("=============================================================")
+            print("TYPE, #         Code            Success         Payload")
+            print("=============================================================")
 
-            thread_cnt = os.cpu_count()
-            threadlist = list()
-            # 각 thread에서 뭘 분업할지 고려
-            for _ in range(thread_cnt):
-                # parameter 전달 순서 고려
-                method = ""
-                if str(self.post_data) != "{}": method = "POST"
-                else: method = "GET"
-                xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
-                thread = threading.Thread(target=xssfz.StartFuzz())
-                thread.start()
-                threadlist.append(thread)
-    
-            for thread in threadlist:
-                thread.join()
+            method = ""
+            if str(self.post_data) != "{}": method = "POST"
+            else: method = "GET"
+            xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
+            xssfz.StartFuzz()
+
+            #sqlfz 부분 추가

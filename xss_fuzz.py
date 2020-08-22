@@ -1,7 +1,13 @@
+import os
 import requests
+import threading
+import concurrent.futures
 import xss_result
 
 class XSS:
+
+    count = 0
+
     def __init__(self, method, attack_url, params,path):
         self.method = method#HTTP METHOD
         self.url = attack_url#공격 대상
@@ -10,20 +16,26 @@ class XSS:
         tmp = self.seed.readlines()
         self.seed.close()
         self.seed = tmp
+        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count())
+    
+    
     def StartFuzz(self):
-        count = 0
-        for vector in self.seed:
-            if(self.method == "GET"):
-                res = requests.get(self.url, params=self.InsertSeed(vector))#@ --> 공격 시드로 변경
-            else:#(self.method == "POST"):
-                res = requests.post(self.url, data=self.InsertSeed(vector))#@ --> 공격 시드로 변경
+        futures = {self.executor.submit(self.Fuzz, vector): vector for vector in self.seed}
+        for future in concurrent.futures.as_completed(futures):
+            self.ResultProcess(future.result())#결과 출력
+    
+    def Fuzz(self, vector):
+        if(self.method == "GET"):
+            res = requests.get(self.url, params=self.InsertSeed(vector))#@ --> 공격 시드로 변경
+        else:#(self.method == "POST"):
+            res = requests.post(self.url, data=self.InsertSeed(vector))#@ --> 공격 시드로 변경
+        
+        return res
 
-            self.ResultProcess(res, count)#결과 출력
-            count += 1
 
     def InsertSeed(self, vector):
         #파라미터마다 다른 시드 삽입
-        temp = self.par;
+        temp = self.par
         for i in temp.keys():
             if(temp[i] == '@'):
                 temp[i] = vector
@@ -35,15 +47,10 @@ class XSS:
         #     if(self.par[i] == '@'):
         #         self.par[i] = tmp
 
-    def ResultProcess(self, res, count):
-        #결과 정리
-        print("############################################")
-        print("            status        suceess       payload     ")
-        result_string = "[{number}]     {code}      {suceess}       {payload}       "#번호,응답코드,성공여부,페이로드
+    def ResultProcess(self, res):
+        # 결과 정리
+        # format: "TYPE, #         Code            Success         Payload"
         XSSresult = xss_result.XSSresult(self.par, res)
-        print(result_string.format(number=count,code=res.status_code,suceess=XSSresult.FindPayload(),payload=self.par))
-
-
-
-
-
+        XSS.count += 1
+        result_string = "{:<16}{:<16}{:<16}{}".format("xss#" + XSS.count, res.status_code, XSSresult.FindPayload(), self.par)
+        print(result_string)
