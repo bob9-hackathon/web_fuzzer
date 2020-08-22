@@ -5,17 +5,14 @@ import requests
 
 class SQLFuzzer(object):
 
-    def __init__(self, url, seedpath, param):
+    def __init__(self, url, seedpath):
         self.url = url
         self.seedpath = seedpath
-        self.param = param
 
     def fuzzing(self):
         seed_file = open(self.seedpath, "r")
         seed_payloads = seed_file.readlines()
-
-        for seed_payload in seed_payloads:
-            data = seed_payload
+        seed_file.close()
 
         s = requests.Session()
         loginfo = {"login":"bee", "password":"bug", "security_level" : "0", "form" : "submit"}
@@ -23,18 +20,23 @@ class SQLFuzzer(object):
         sess = s.cookies
         requests.get("http://180.71.77.139/bWAPP/sm_local_priv_esc_1.php", cookies=sess)
         phpsessid=sess['PHPSESSID']
-        print(phpsessid)
 
-        # test send data
-        param = {'title':data, 'action':'search'}
-        req = s.get(self.url, params=param, cookies=sess)
-        res = req.text
+        for i in range(0, len(seed_payloads)):
+            param = {'title':seed_payloads[i], 'action':'search'}
+            payload = seed_payloads[i]
+            req = s.get(self.url, params=param, cookies=sess, headers={'Content-Type': 'application/x-www-form-urlencoded'})
+            i += 1
+
+        #count = SQLFuzzer.count
+        status = req.status_code
         url = req.url
-        print(res)
-        print(url)
-
-    #def seed(self, seed_payload):
+        #payload = param
+        
+        #print("sql count : ", count)
+        print("response status code : ", status)
+        print("request url : ", url)
+        print("insert payload : ", payload)
 
     def run(self):
-        self.fuzzing()
-    
+        while True:
+            self.fuzzing()
