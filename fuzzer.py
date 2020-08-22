@@ -5,12 +5,9 @@ import requests
 
 class SQLFuzzer(object):
 
-    count = 0
-    
-    def __init__(self, url, seedpath, param):
+    def __init__(self, url, seedpath):
         self.url = url
         self.seedpath = seedpath
-        self.param = param
 
     def fuzzing(self):
         seed_file = open(self.seedpath, "r")
@@ -30,17 +27,15 @@ class SQLFuzzer(object):
             req = s.get(self.url, params=param, cookies=sess, headers={'Content-Type': 'application/x-www-form-urlencoded'})
             i += 1
 
-        count = SQLFuzzer.count
+        #count = SQLFuzzer.count
         status = req.status_code
         url = req.url
         #payload = param
         
-        print("sql count : ", count)
+        #print("sql count : ", count)
         print("response status code : ", status)
         print("request url : ", url)
         print("insert payload : ", payload)
-
-        SQLFuzzer.count += 1
 
     def run(self):
         while True:
