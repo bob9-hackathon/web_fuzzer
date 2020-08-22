@@ -22,7 +22,7 @@ def print_introduce():
 def add_args(parser):
     parser.add_argument('-seed', required=True, help='퍼징할 시드파일 경로')
     parser.add_argument('-params', required=False, help='인자값, 여러 개 구분자: ***')    
-    parser.add_argument('-post', required=False, help='POST 방식으로 넘길 값')             
+    parser.add_argument('-post', required=False, help='POST 방식으로 넘길 값')      
     parser.add_argument('-urls', required=True, help='대상 주소 URL, 여러 개의 url 구분자: ***')
 
 def parse_inputs(args, fuzzer):
@@ -36,9 +36,9 @@ def parse_inputs(args, fuzzer):
         for url in input_urls:
             fuzzer.urls.append(url)
 
-    # cookie 파싱하여 저장
+    # parameter 파싱하여 저장
     if str(args.params) != "None":
-        input_params = str(args.cookies).split("***")
+        input_params = str(args.params).split("***")
         for param in input_params:
             equal_parsed = str(param).split("=", maxsplit=1)
             fuzzer.param_dict[equal_parsed[0]] = equal_parsed[1]                       
