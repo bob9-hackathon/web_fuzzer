@@ -7,15 +7,14 @@ import threading
 import concurrent.futures
 
 class SQLFuzzer(object):
+    
+    count = 0
 
     def __init__(self, url, seedpath):
         self.url = url
         self.seedpath = seedpath
-<<<<<<< HEAD
         self.param = param
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count())
-=======
->>>>>>> 09159f1054ba1d360b08e9bdd5bd34f03d0cc1d4
 
     def StartFuzz(self):
         seed_file = open(self.seedpath, "r")
@@ -35,21 +34,18 @@ class SQLFuzzer(object):
         phpsessid=sess['PHPSESSID']
 
         
-        for i in range(0, len(seed_payloads)):
-            param = {'title':seed_payloads[i], 'action':'search'}
-            payload = seed_payloads[i]
+        for payload in seed_payloads:
+            param = {'title':payload, 'action':'search'}
             req = s.get(self.url, params=param, cookies=sess, headers={'Content-Type': 'application/x-www-form-urlencoded'})
-            i += 1
-
-        #count = SQLFuzzer.count
-        status = req.status_code
-        url = req.url
-        #payload = param
-        
-        #print("sql count : ", count)
-        print("response status code : ", status)
-        print("request url : ", url)
-        print("insert payload : ", payload)
+            
+            status = req.status_code
+            url = req.url
+            
+            print("sql count : ", SQLFuzzer.count)
+            print("response status code : ", status)
+            print("request url : ", url)
+            print("insert payload : ", payload)
+            SQLFuzzer.count += 1
 
     def run(self):
         while True:
