@@ -10,6 +10,6 @@ url = sys.argv[1]
 
 seedpath = sys.argv[2]
 
-fuzzer = SQLFuzzer(url=url, seedpath=seedpath, param=param) 
+fuzzer = SQLFuzzer(url=url, seedpath=seedpath)
 
 fuzzer.run()
