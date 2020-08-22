@@ -7,7 +7,10 @@ class XSSresult:
 
     def FindPayload(self):
         html = self.res.text
-        driver = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        driver = webdriver.Chrome(chrome_options=chrome_options)
+        
         html = "<script>location.reload = () => {}; window.testSuccess = false; window.executeTest = () => testSuccess = true;</script>" + html
         driver.get("data:text/html;charset=utf-8,{html_content}".format(html_content=html))
         if driver.execute_script('return window.testSuccess'):
