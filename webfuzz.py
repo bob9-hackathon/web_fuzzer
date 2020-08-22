@@ -10,7 +10,6 @@ class FUZZER:
         self.urls = list()
         self.param_dict = dict()
         self.post_data = dict()
-        self.id = 0
     
     def start(self):
         print("Start Fuzzing...\n")
@@ -28,18 +27,17 @@ class FUZZER:
 
             print("Target:", url)
             print("======================================================================")
-            print("ID          Response    Lines    Word    Chars    Payload")
+            print("TYPE          Response    Lines    Word    Chars    Payload")
             print("======================================================================")
 
-            self.id = 0
             thread_cnt = os.cpu_count()
             threadlist = list()
             # 각 thread에서 뭘 분업할지 고려
             for _ in range(thread_cnt):
                 # parameter 전달 순서 고려
                 method = ""
-                if str(self.post_data) != "None": method.join("POST")
-                else: method.join("GET")
+                if str(self.post_data) != "{}": method = "POST"
+                else: method = "GET"
                 xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
                 thread = threading.Thread(target=xssfz.StartFuzz())
                 thread.start()
