@@ -16,13 +16,6 @@ class FUZZER:
     
     def fuzzing(self):
         for url in self.urls:
-            #로그인 스크립트
-            domain = url[:url.find('/', url.find("//") + 2)]
-            s = requests.Session()
-            loginfo = {"login":"bee", "password":"bug", "security_level" : "0", "form" : "submit"}
-            s.post(domain+"/bWAPP/login.php", data=loginfo)
-            sess = s.cookies
-            sess = sess["PHPSESSID"]
 
             print("Target:", url)
             print("=============================================================")
