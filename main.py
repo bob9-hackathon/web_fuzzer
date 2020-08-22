@@ -39,7 +39,7 @@ def parse_inputs(args, fuzzer):
 
     # parameter 파싱하여 저장
     if str(args.params) != "None":
-        input_params = str(args.params).split("***")
+        input_params = str(args.params).split("&")
         for param in input_params:
             equal_parsed = str(param).split("=", maxsplit=1)
             fuzzer.param_dict[equal_parsed[0]] = equal_parsed[1]                       

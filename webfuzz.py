@@ -26,7 +26,7 @@ class FUZZER:
             method = ""
             if str(self.post_data) != "{}": method = "POST"
             else: method = "GET"
-            xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed)
+            xssfz = xss_fuzz.XSS(method, url, self.param_dict, self.seed, self.cookie)
             xssfz.StartFuzz()
 
             #sqlfz = sql_fuzz.SQLFuzzer(url, self.seed, param_dict)

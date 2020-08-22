@@ -9,7 +9,7 @@ class XSS:
 
     count = 0
 
-    def __init__(self, method, attack_url, params,path):
+    def __init__(self, method, attack_url, params,path, cookie):
         self.method = method#HTTP METHOD
         self.url = attack_url#공격 대상
         self.par = params#파라미터
@@ -18,6 +18,7 @@ class XSS:
         self.seed.close()
         self.seed = tmp
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count())
+        self.cookie = cookie
     
     
     def StartFuzz(self):
@@ -27,9 +28,9 @@ class XSS:
     
     def Fuzz(self, vector):
         if(self.method == "GET"):
-            res = requests.get(self.url, params=self.InsertSeed(vector))#@ --> 공격 시드로 변경
+            res = requests.get(self.url, params=self.InsertSeed(vector), cookies=self.cookie)#@ --> 공격 시드로 변경
         else:#(self.method == "POST"):
-            res = requests.post(self.url, data=self.InsertSeed(vector))#@ --> 공격 시드로 변경
+            res = requests.post(self.url, data=self.InsertSeed(vector), cookies=self.cookie)#@ --> 공격 시드로 변경
         
         return {"http": res, "xss": self.InsertSeed(vector)}
 
