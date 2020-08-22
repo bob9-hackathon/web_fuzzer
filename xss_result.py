@@ -13,7 +13,9 @@ class XSSresult:
         
         html = "<script>location.reload = () => {}; window.testSuccess = false; window.executeTest = () => testSuccess = true;</script>" + html
         driver.get("data:text/html;charset=utf-8,{html_content}".format(html_content=html))
-        if driver.execute_script('return window.testSuccess'):
+        ret = driver.execute_script('return window.testSuccess')
+        driver.quit()
+        if ret:
             return 'OK'
         else: 
             return 'NO'

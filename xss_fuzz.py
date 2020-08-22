@@ -3,6 +3,7 @@ import requests
 import threading
 import concurrent.futures
 import xss_result
+import copy
 
 class XSS:
 
@@ -30,12 +31,12 @@ class XSS:
         else:#(self.method == "POST"):
             res = requests.post(self.url, data=self.InsertSeed(vector))#@ --> 공격 시드로 변경
         
-        return res
+        return {"http": res, "xss": self.InsertSeed(vector)}
 
 
     def InsertSeed(self, vector):
         #파라미터마다 다른 시드 삽입
-        temp = self.par
+        temp = copy.deepcopy(self.par)
         for i in temp.keys():
             if(temp[i] == '@'):
                 temp[i] = vector
@@ -50,7 +51,7 @@ class XSS:
     def ResultProcess(self, res):
         # 결과 정리
         # format: "TYPE, #         Code            Success         Payload"
-        XSSresult = xss_result.XSSresult(self.par, res)
+        XSSresult = xss_result.XSSresult(self.par, res['http'])
         XSS.count += 1
-        result_string = "{:<16}{:<16}{:<16}{}".format("xss#" + XSS.count, res.status_code, XSSresult.FindPayload(), self.par)
+        result_string = "{:<16}{:<16}{:<16}{}".format("xss#" + str(XSS.count), res['http'].status_code, XSSresult.FindPayload(), res['xss'])
         print(result_string)
